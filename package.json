@@ -10,9 +10,16 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.32.2",
+    "axios": "^1.12.2",
+    "mongoose": "^8.18.2",
     "next": "15.5.3",
+    "openai": "^5.23.0",
+    "prismjs": "^1.30.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-hot-toast": "^2.6.0",
+    "react-markdown": "^10.1.0",
+    "svix": "^1.76.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
