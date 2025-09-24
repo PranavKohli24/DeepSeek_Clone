@@ -9,8 +9,8 @@ import OpenAI from "openai";
 
 //initialize openai client with deepseek API key and base URL
 const openai = new OpenAI({
-        baseURL: 'https://api.deepseek.com',
-        apiKey: process.env.DEEPSEEK_API_KEY
+        baseURL: 'https://openrouter.ai/api/v1',
+        apiKey: process.env.OPENROUTER_API_KEY
 });
 
 export async function POST(req){
@@ -28,6 +28,13 @@ export async function POST(req){
         await connectDB();
         const data=await Chat.findOne({userId, _id:chatId})
 
+        if (!data) {
+            return NextResponse.json({
+                success: false,
+                message: "Chat not found for this user",
+            });
+            }
+
         //create a user message object
         const userPrompt={
             role:'user',
@@ -38,25 +45,39 @@ export async function POST(req){
         data.messages.push(userPrompt);
 
         //call the deepseek api
+        // const completion = await openai.chat.completions.create({
+        //     messages: [{ role: "user", content: prompt }],
+        //     model: "deepseek-chat",
+        //     store:true,
+        // });
+
         const completion = await openai.chat.completions.create({
-            messages: [{ role: "user", content: prompt }],
-            model: "deepseek-chat",
-            store:true,
-        });
+  model: "openai/gpt-3.5-turbo", // or "openai/gpt-3.5-turbo"
+  messages: [{ role: "user", content: prompt }],
+});
+
+        // const message = completion.choices[0].message;
+
+
 
         const message=completion.choices[0].message;
+
 
         message.timestamp=Date.now()
 
         data.messages.push(message);
 
-        data.save();
+
+        console.log("Assistant message:", message);
+
+
+        await data.save();
 
         return NextResponse.json({success:true,data:message})
 
 
     }catch(err){
-        return NextResponse.json({success:false, error:err.message})
+        return NextResponse.json({success:false, message:err.message})
     }
 }
 
