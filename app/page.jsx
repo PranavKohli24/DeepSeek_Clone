@@ -5,6 +5,7 @@ import Message from "@/components/Message";
 import PromptBox from "@/components/PromptBox";
 import Sidebar from "@/components/Sidebar";
 import { useAppContext } from "@/context/AppContext";
+import { useClerk } from "@clerk/nextjs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,8 +15,11 @@ export default function Home() {
   const [messages,setMessages]=useState([]);
   const [isLoading,setIsLoading]=useState(false)
 
-  const {selectedChat}=useAppContext()
+  const {selectedChat, user, createNewChat}=useAppContext()
   const containerRef=useRef(null);
+
+  const {openSignIn}=useClerk();
+
 
   useEffect(()=>{
     if(selectedChat){
@@ -47,14 +51,25 @@ export default function Home() {
               className="rotate-180" 
               src={assets.menu_icon} 
               alt=""/>
-             <Image className="opacity-70" src={assets.chat_icon} alt=""/>
+              {user&&<Image onClick={createNewChat} className="opacity-70 hover:opacity-100 transition-opacity duration-200" src={assets.chat_icon} alt=""/>}
+             {/* <Image className="opacity-70" src={assets.chat_icon} alt=""/> */}
           </div>
+
+        {/* Signup button if user is null */}
+          {!user && (
+            <button 
+              onClick={openSignIn} 
+              className="absolute top-6 right-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
+            >
+              Sign Up
+            </button>
+          )}
 
         {messages.length==0?(
               <>
                 <div className="flex items-center gap-3">
-                  <Image src={assets.logo_icon} alt="" className="h-16"/>
-                  <p className="text-2xl font-medium">Hi, I am Pranav Kohli</p>
+                  <Image src={assets.logo_icon} alt="" className="h-12 w-12"/>
+                  <p className="text-2xl font-medium">Hi, I am Pranav's Digital Twin</p>
                 </div>
                 <p className="text-sm mt-2">How can i help you today!</p>
               </>
@@ -90,7 +105,7 @@ export default function Home() {
         {/* prompt box */}
         <PromptBox isLoading={isLoading} setIsLoading={setIsLoading}/>
 
-        <p className="text-xs absolute bottom-1 text-gray-500">AI generated for ref only</p>
+        <p className="text-xs absolute bottom-1 text-gray-500">Yo!! wassup pranav's friend Have a nice day!</p>
 
         </div>
       </div>
