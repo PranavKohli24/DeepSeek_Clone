@@ -7,7 +7,7 @@ import ChatLabel from './ChatLabel'
 
 const Sidebar = ({expand,setExpand}) => {
 
-    const {openSignIn}=useClerk();
+    const {openSignIn, openUserProfile}=useClerk();
 
     const {user, chats, createNewChat, selectedChat}=useAppContext();
 
@@ -88,7 +88,7 @@ const Sidebar = ({expand,setExpand}) => {
       </div>
 
       <div>
-        <div className={`flex items-center cursor-pointer group relative 
+        <div onClick={() => window.open('https://www.linkedin.com/in/pranav-kohli-987aa5226/', '_blank')} className={`flex items-center cursor-pointer group relative 
             ${expand?'gap-1 text-white/80 text-sm p-2.5 border border-primary rounded-lg hover:bg-white/10 cursor-pointer':
             'h-10 w-10 mx-auto hover:bg-gray-500/30 rounded-lg'}`}>
             <Image className={expand?'w-5':'w-6.5 mx-auto'} src={expand?assets.phone_icon:assets.phone_icon_dull} alt=''/>
@@ -102,7 +102,7 @@ const Sidebar = ({expand,setExpand}) => {
         {expand&&<><span>Linkedin</span><Image src={assets.new_icon} alt='' /></>}
             </div>
 
-<div onClick={user?null:openSignIn} 
+<div onClick={user?openUserProfile:openSignIn} 
     className={`flex items-center ${expand?'hover:bg-white/10 rounded-lg':'justify-center w-full'} gap-3 text-white/60 text-sm p-2 mt-2 cursor-pointer`}>
     
     {

@@ -29,6 +29,8 @@ const PromptBox = ({isLoading,setIsLoading}) => {
 
             if(isLoading)return toast.error('Wait for the previous prompt response');
 
+            if (!selectedChat?._id) return;
+
             setIsLoading(true);
 
             setPrompt('')
@@ -43,13 +45,13 @@ const PromptBox = ({isLoading,setIsLoading}) => {
             //saving user prompt in chats array
             setChats((prevChats)=>prevChats.map((chat)=>chat._id==selectedChat._id?{
                 ...chat,
-                messages:[...chat.messages,userPrompt]
+                messages:[...(chat?.messages || []),userPrompt]
             }:chat))
 
             //saving user prompt in selected chat.
             setSelectedChat((prev)=>({
                 ...prev,
-                messages:[...prev.messages,userPrompt]
+                messages:[...(prev?.messages || []),userPrompt]
             }))
 
             const {data}=await axios.post('/api/chat/ai',{
