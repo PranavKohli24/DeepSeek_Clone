@@ -25,7 +25,7 @@ const PromptBox = ({isLoading,setIsLoading}) => {
 
         try{
             e.preventDefault();
-            if(!user)return toast.error('Please Login to send message (would take just few seconds)');
+            if(!user)return toast.error('Please Login to send message (would take just few seconds)',{duration:2500});
 
             if(isLoading)return toast.error('Wait for the previous prompt response');
 
