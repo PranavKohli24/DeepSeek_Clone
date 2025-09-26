@@ -59,7 +59,7 @@ export default function Home() {
           {!user && (
             <button 
               onClick={openSignIn} 
-              className="absolute top-6 right-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
+              className="absolute top-15 right-10 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
             >
               Sign Up
             </button>
