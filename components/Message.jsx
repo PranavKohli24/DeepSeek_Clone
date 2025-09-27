@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import Markdown from 'react-markdown'
 import Prism from 'prismjs'
 import toast from 'react-hot-toast'
+import CodeBlock from './CodeBlock'
 
 const Message = ({role,content}) => {
 
@@ -31,7 +32,7 @@ const Message = ({role,content}) => {
                             </>
                         ):(
                             <>
-                                <Image onClick={copyMessage} src={assets.copy_icon} alt='' className='w-4.5 cursor-pointer'/>
+                                {/* <Image onClick={copyMessage} src={assets.copy_icon} alt='' className='w-4.5 cursor-pointer'/> */}
                                 <Image src={assets.regenerate_icon} alt='' className='w-4 cursor-pointer'/>
                                 <Image src={assets.like_icon} alt='' className='w-4 cursor-pointer'/>
                                 <Image src={assets.dislike_icon} alt='' className='w-4 cursor-pointer'/>
@@ -44,7 +45,11 @@ const Message = ({role,content}) => {
             {
                 role==='user'?(
                     <span className='text-white/90'>
-                        <Markdown>
+                        <Markdown components={{
+      code: CodeBlock,
+      p: ({ children }) => <div>{children}</div>
+    }}>
+
                             {content}
                         </Markdown>
                         </span>
@@ -52,7 +57,13 @@ const Message = ({role,content}) => {
                     <>
                     <Image src={assets.logo_icon} alt='' className='h-9 w-9 p-1 border border-white/15 rounded-full'/>
 
-                    <div className='space-y-4 w-full overflow-scroll'>{content}</div>
+                    <div className='space-y-4 w-full overflow-scroll'>
+                        <Markdown   components={{
+    code: CodeBlock,
+    p: ({ children }) => <div>{children}</div>  // avoids <pre> inside <p>
+  }}
+>{content}</Markdown>
+                        </div>
                     </>
                     
                 )

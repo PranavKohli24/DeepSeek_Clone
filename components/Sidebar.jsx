@@ -15,6 +15,15 @@ const Sidebar = ({expand,setExpand}) => {
 
     const sidebarRef = useRef(null);
 
+    const [loadingNewChat, setLoadingNewChat] = useState(false);
+
+    const handleNewChat = async () => {
+        setLoadingNewChat(true);
+        await createNewChat();
+        setLoadingNewChat(false);
+    };
+
+
 
     // Close sidebar on outside click
   useEffect(() => {
@@ -54,7 +63,7 @@ const Sidebar = ({expand,setExpand}) => {
             </div>
         </div>
 <button 
-    onClick={createNewChat} 
+    onClick={handleNewChat} 
     className={`mt-8 flex items-center justify-center cursor-pointer
         ${expand 
             ? 'relative gap-2 p-2.5 w-max rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors'
@@ -74,7 +83,7 @@ const Sidebar = ({expand,setExpand}) => {
         <div className='w-3 h-3 absolute bg-gray-900 rotate-45 left-4 -bottom-1.5'></div>
     </div>
     
-    {expand && <p className='text-white text font-medium'>New Chat</p>}
+    {expand && <p className='text-white text font-medium'>{loadingNewChat ? 'Creating...' : 'New Chat'}</p>}
 </button>
 
 

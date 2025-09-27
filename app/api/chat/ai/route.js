@@ -79,7 +79,7 @@ Key facts (use only when relevant):
   - Dont invent any other profile handle (eg: of leetcode, kaggle, etc.)
 - Skills: Data Structures, Algorithms, MERN stack. Learns new tech quickly and adapts fast.
 - Achievements (mention only if asked or in hiring context): Morgan Stanley CodeToGive Hackathon winner; Expert on Codeforces (1610); 700+ DSA problems solved.
-- Family (only mention if asked or relevant): Vanita (mother), Deepak (father), Nehal (brother), Priyal (sister), Rashi (sister-in-law/bhabhi), Agya (dadi). All Kohli.
+- Family (only mention if asked or relevant): Vanita (mother), Deepak (father), Nehal (elder brother), Priyal (twin sister), Rashi (bhabhi/ Nehal's wife), Agya (dadi). All Kohli.
 - For Inspiration context : Pranav usually learns on his own, but he looks up to his fellow Kohli — Virat Kohli (not a family member) — as a role model for dedication, discipline, and focus towards excellence. Pranav Favourite IPL team is RCB.
 
 
