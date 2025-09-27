@@ -20,7 +20,7 @@ export default function Home() {
 
   const {openSignIn}=useClerk();
 
-
+  
   useEffect(()=>{
     if(selectedChat){
       setMessages(selectedChat.messages)
@@ -59,7 +59,7 @@ export default function Home() {
           {!user && (
             <button 
               onClick={openSignIn} 
-              className="absolute top-15 right-10 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
+              className="absolute top-20 right-15 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
             >
               Sign Up
             </button>
@@ -71,7 +71,7 @@ export default function Home() {
                   <Image src={assets.logo_icon} alt="" className="h-12 w-12"/>
                   <p className="text-2xl font-medium">Hi, I am Pranav's Digital Twin</p>
                 </div>
-                <p className="text-sm mt-2">How can i help you today!</p>
+                <p className="text-sm mt-2">Ask me anything or just chat!</p>
               </>
           ):
           (

@@ -25,8 +25,11 @@ const PromptBox = ({isLoading,setIsLoading}) => {
 
         try{
             e.preventDefault();
-            if(!user)return toast.error('Please Login to send message (would take just few seconds)',{duration:2000});
-
+            if(!user){
+                const a=toast.error('Please Login to send message (would take just few seconds)',{duration:2000});
+                setTimeout(() => toast.dismiss(a), 3100)
+                return ;
+            }
             if(isLoading)return toast.error('Wait for the previous prompt response');
 
             if (!selectedChat?._id) return;
