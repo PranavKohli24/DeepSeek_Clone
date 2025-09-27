@@ -6,6 +6,20 @@ import Prism from 'prismjs'
 import toast from 'react-hot-toast'
 import CodeBlock from './CodeBlock'
 
+import { Fira_Code } from "next/font/google";
+
+const firaCode = Fira_Code({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+
+
+
+
+
+
+
 const Message = ({role,content}) => {
 
     useEffect(()=>{
@@ -57,7 +71,7 @@ const Message = ({role,content}) => {
                     <>
                     <Image src={assets.logo_icon} alt='' className='h-9 w-9 p-1 border border-white/15 rounded-full'/>
 
-                    <div className='space-y-4 w-full overflow-scroll'>
+                    <div className={`space-y-4 w-full overflow-scroll text-l md:text-l ${firaCode.className} text-white/90`}>
                         <Markdown   components={{
     code: CodeBlock,
     p: ({ children }) => <div>{children}</div>  // avoids <pre> inside <p>

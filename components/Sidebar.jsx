@@ -87,7 +87,10 @@ const Sidebar = ({expand,setExpand}) => {
 </button>
 
 
-        <div className={`mt-8 text-white/25 text-sm ${expand?"block":"hidden"}`}>
+        {/* <div className={`mt-8 text-white/25 text-sm ${expand?"block":"hidden"}`}> */}
+        <div className={`mt-8 text-white/25 text-sm overflow-y-auto ${expand?"block":"hidden"}`} 
+     style={{ maxHeight: 'calc(100vh - 220px)' }}>
+
             <p className='my-1'>Recents</p>
 
             {/* chatLabel */}
@@ -96,7 +99,8 @@ const Sidebar = ({expand,setExpand}) => {
         </div>
       </div>
 
-      <div>
+      <div className={`absolute bottom-4 left-0 flex flex-col gap-2 p-2 rounded-lg ${expand ? 'w-64' : 'md:w-20 w-0'}`} 
+     style={{ backgroundColor: '#1a1c20' }}>
         <div onClick={() => window.open('https://www.linkedin.com/in/pranav-kohli-987aa5226/', '_blank')} className={`flex items-center cursor-pointer group relative 
             ${expand?'gap-1 text-white/80 text-sm p-2.5 border border-primary rounded-lg hover:bg-white/10 cursor-pointer':
             'h-10 w-10 mx-auto hover:bg-gray-500/30 rounded-lg'}`}>
