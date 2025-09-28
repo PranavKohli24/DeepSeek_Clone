@@ -2,13 +2,25 @@ import { assets } from '@/assets/assets'
 import { useAppContext } from '@/context/AppContext';
 import axios from 'axios';
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const PromptBox = ({isLoading,setIsLoading}) => {
 
     const [prompt,setPrompt]=useState('');
     const {user,chats,setChats,selectedChat,setSelectedChat}=useAppContext();
+
+        const hasShownLoginToast = useRef(false); // prevent multiple toasts
+
+    useEffect(() => {
+        if (user && !hasShownLoginToast.current) {
+            
+            const b=toast.success('Thank you for login!', { duration: 2000 });
+            setTimeout(() => toast.dismiss(b), 3100)
+            hasShownLoginToast.current = true;
+        }
+    }, [user]);
+
 
 
     const handleKeyDown=(e)=>{
