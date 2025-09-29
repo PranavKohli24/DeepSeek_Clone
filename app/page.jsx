@@ -133,13 +133,27 @@ export default function Home() {
         <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
 
         {/* Footer text */}
-        <p
-          className={`text-xs absolute bottom-1 text-gray-500 transition-all duration-700 delay-700 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          } text-center w-full px-4`}
-        >
-          Hi {user?.firstName || "there"}! Ask me anything about Pranav or just chat
-        </p>
+        {/* Footer text */}
+{user ? (
+  // If user exists, keep it at bottom
+  <p
+    className={`text-xs absolute bottom-1 text-gray-500 transition-all duration-700 delay-700 ${
+      mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+    } text-center w-full px-4`}
+  >
+    Hi {user.firstName}! Ask me anything about Pranav or just chat
+  </p>
+) : (
+  // If no user, show it just below PromptBox
+  <p
+    className={`text-sm mt-2 text-gray-400 text-center transition-all duration-700 delay-300 ${
+      mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+    }`}
+  >
+    Hello there! Ask anything about Pranav or just chat
+  </p>
+)}
+
       </div>
 
       {/* Tailwind custom animation */}
