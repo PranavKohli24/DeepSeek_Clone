@@ -44,7 +44,7 @@ export default function Home() {
         {/* Mobile menu + new chat */}
         <div className="md:hidden absolute px-4 top-6 flex items-center justify-between w-full">
           <Image
-            onClick={() => (expand ? setExpand(false) : setExpand(true))}
+            onClick={() => setExpand(!expand)}
             className="rotate-180"
             src={assets.menu_icon}
             alt=""
@@ -72,34 +72,33 @@ export default function Home() {
         )}
 
         {/* Intro / Empty Chat */}
-        {messages.length === 0 && (
-          <div className="flex flex-col items-center gap-3">
-            <Image
-              src={assets.logo_icon}
-              alt=""
-              className={`h-16 w-16 transition-all duration-700 ${
-                mounted ? "scale-110 opacity-100 drop-shadow-[0_0_25px_#4f5a6a]" : "scale-0 opacity-0"
-              }`}
-            />
-            <h1
-              className={`text-3xl font-extrabold text-white transition-all duration-700 ${
-                mounted
-                  ? "scale-105 opacity-100 animate-bounce-once"
-                  : "scale-0 opacity-0"
-              }`}
-            >
-              Hi, I am Pranav's Digital Twin
-            </h1>
-            <p
-              className={`text-sm mt-2 text-gray-300 transition-all duration-700 delay-200 ${
-                mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            >
-              {user?'Ask me anything or just chat!':'Signup to continue'}
-              
-            </p>
-          </div>
-        )}
+        {/* Intro / Empty Chat */}
+{messages.length === 0 && (
+  <div className="flex flex-col items-center gap-3 text-center px-4">
+    <Image
+      src={assets.logo_icon}
+      alt=""
+      className={`h-14 w-14 transition-all duration-700 ${
+        mounted ? "scale-105 opacity-100 drop-shadow-[0_0_20px_#4f5a6a]" : "scale-0 opacity-0"
+      }`}
+    />
+    <h1
+      className={`font-extrabold text-white transition-all duration-700 ${
+        mounted ? "scale-100 opacity-100 animate-bounce-once" : "scale-0 opacity-0"
+      } text-xl sm:text-2xl md:text-3xl`}
+    >
+      Hi, I am Pranav's Digital Twin
+    </h1>
+    <p
+      className={`text-sm mt-2 text-gray-300 transition-all duration-700 delay-200 ${
+        mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
+      {user ? 'Ask me anything or just chat!' : 'Signup to continue'}
+    </p>
+  </div>
+)}
+
 
         {/* Chat messages */}
         {messages.length > 0 && (
@@ -133,10 +132,11 @@ export default function Home() {
         {/* Prompt */}
         <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
 
+        {/* Footer text */}
         <p
           className={`text-xs absolute bottom-1 text-gray-500 transition-all duration-700 delay-700 ${
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          }`}
+          } text-center w-full px-4`}
         >
           Hi {user?.firstName || "there"}! Ask me anything about Pranav or just chat
         </p>
