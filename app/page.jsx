@@ -15,13 +15,17 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [logoAnimated, setLogoAnimated] = useState(false);
+  const [creatingChat, setCreatingChat] = useState(false); // NEW
 
   const { selectedChat, user, createNewChat } = useAppContext();
   const containerRef = useRef(null);
   const { openSignIn } = useClerk();
 
   useEffect(() => {
-    if (selectedChat) setMessages(selectedChat.messages);
+    if (selectedChat) {
+      setMessages(selectedChat.messages);
+      setCreatingChat(false); // reset after new chat loads
+    }
   }, [selectedChat]);
 
   useEffect(() => {
@@ -35,11 +39,15 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
-    // Trigger logo animation completion after initial grow animation
     setTimeout(() => {
       setLogoAnimated(true);
-    }, 1000); // Matches the logo grow animation duration
+    }, 1000);
   }, []);
+
+  const handleNewChat = async () => {
+    setCreatingChat(true);
+    await createNewChat();
+  };
 
   return (
     <div className="flex h-screen bg-[#292a2d] text-white">
@@ -48,31 +56,41 @@ export default function Home() {
 
       {/* Main Section */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-8 relative overflow-hidden">
+        
         {/* Mobile menu + new chat */}
-        <div className="md:hidden absolute px-4 top-6 flex items-center justify-between w-full">
-          <Image
-            onClick={() => setExpand(!expand)}
-            className="rotate-180"
-            src={assets.menu_icon}
-            alt=""
-          />
-          {user && (
+        <div className="md:hidden absolute px-4 top-6 flex flex-col items-center w-full">
+          <div className="flex items-center justify-between w-full">
             <Image
-              onClick={createNewChat}
-              className="opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.chat_icon}
+              onClick={() => setExpand(!expand)}
+              className="rotate-180"
+              src={assets.menu_icon}
               alt=""
             />
-          )}
+            {user && (
+              <div className="flex flex-col items-center">
+                <Image
+                  onClick={handleNewChat}
+                  className="opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                  src={assets.chat_icon}
+                  alt=""
+                />
+                {creatingChat && (
+                  <span className="text-xs text-gray-300 mt-1 animate-pulse">
+                    creating new chat...
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Signup button */}
         {!user && (
           <button
             onClick={openSignIn}
-            className={`absolute top-20 right-6 px-5 py-3 bg-blue-600 rounded-lg text-white font-bold shadow-lg transform transition-all duration-500 ${
-              logoAnimated ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"
-            } hover:scale-110 hover:shadow-2xl`}
+            className={`absolute top-20 right-6 px-6 py-3 bg-gradient-to-r from-sky-400 to-sky-600 text-white font-semibold rounded-xl shadow-md transform transition-all duration-500 ease-out
+    ${logoAnimated ? "translate-x-0 opacity-100" : "translate-x-24 opacity-0"}
+    hover:scale-105 hover:shadow-xl hover:from-sky-500 hover:to-sky-700`}
           >
             Sign Up
           </button>

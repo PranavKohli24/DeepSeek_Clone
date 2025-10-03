@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useClerk, UserButton } from '@clerk/nextjs'
 import { useAppContext } from '@/context/AppContext'
 import ChatLabel from './ChatLabel'
+import toast from 'react-hot-toast'
 
 const Sidebar = ({expand,setExpand}) => {
 
@@ -18,6 +19,11 @@ const Sidebar = ({expand,setExpand}) => {
     const [loadingNewChat, setLoadingNewChat] = useState(false);
 
     const handleNewChat = async () => {
+        if(!user){
+                const a=toast.error('Oops! You need to log in to send messages to Pranav',{duration:2000});
+                setTimeout(() => toast.dismiss(a), 3100)
+                return ;
+            }
         setLoadingNewChat(true);
         await createNewChat();
         setLoadingNewChat(false);
