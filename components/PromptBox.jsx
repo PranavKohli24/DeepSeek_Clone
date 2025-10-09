@@ -131,7 +131,7 @@ const PromptBox = ({isLoading,setIsLoading}) => {
     className={`w-full ${selectedChat?.messages.length>0?'max-w-3xl':'max-w-2xl'} bg-[#404045] p-4 rounded-3xl mt-4 transition-all `}>
         <textarea onKeyDown={handleKeyDown}
             className='outline-none w-full resize-none overflow-hidden break-words bg-transparent'
-            rows={2} placeholder='Message Pranav AI' required onChange={(e)=>setPrompt(e.target.value)} value={prompt}/>
+            rows={2} placeholder="Message Pranav's AI.." required onChange={(e)=>setPrompt(e.target.value)} value={prompt}/>
 
 
         <div className='flex items-center justify-between text-sm'>
