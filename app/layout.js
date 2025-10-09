@@ -13,7 +13,7 @@ const inter = Inter({
 
 export const metadata = {
   title: "kohliAI",
-  description: "Pranav Kohli personal Full Stack project",
+  description: "Pranav Kohli portfolio",
 };
 
 export default function RootLayout({ children }) {

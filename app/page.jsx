@@ -102,15 +102,11 @@ export default function Home() {
             <Image
               src={assets.logo_icon}
               alt=""
-              className={`h-14 w-14 transition-all duration-1000 ease-out ${
+              className={`h-24 w-24 md:h-26 md:w-26  rounded-full transition-all duration-1000 ease-out ${
                 mounted 
                   ? "scale-100 opacity-100 animate-logo-grow" 
                   : "scale-0 opacity-0"
-              } ${
-                logoAnimated 
-                  ? "drop-shadow-[0_0_20px_#4f5a6a] animate-logo-glow" 
-                  : ""
-              }`}
+              } `}
             />
             <h1
               className={`font-extrabold text-white transition-all duration-700 ease-out ${
@@ -129,7 +125,7 @@ export default function Home() {
               }`}
               style={{ transitionDelay: logoAnimated ? '200ms' : '0ms' }}
             >
-              {user ? 'Ask me anything or just chat!' : 'Signup to continue'}
+              {user ? 'Ask me anything or just chat!' : 'Signup to continue!'}
             </p>
           </div>
         )}
@@ -209,14 +205,7 @@ export default function Home() {
           }
         }
 
-        @keyframes logo-glow {
-          0%, 100% {
-            filter: drop-shadow(0 0 20px rgba(79, 90, 106, 0.6));
-          }
-          50% {
-            filter: drop-shadow(0 0 30px rgba(79, 90, 106, 0.9));
-          }
-        }
+        
 
         .animate-logo-grow {
           animation: logo-grow 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
