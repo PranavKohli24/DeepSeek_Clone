@@ -55,7 +55,7 @@ export default function Home() {
       <Sidebar expand={expand} setExpand={setExpand} />
 
       {/* Main Section */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-8 relative overflow-hidden">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-12 md:pb-20 relative overflow-hidden">
         
         {/* Mobile menu + new chat */}
         <div className="md:hidden absolute px-4 top-6 flex flex-col items-center w-full">
@@ -134,7 +134,7 @@ export default function Home() {
         {messages.length > 0 && (
           <div
             ref={containerRef}
-            className="relative flex flex-col items-center justify-start w-full mt-20 max-h-screen overflow-y-auto"
+            className="relative flex flex-col items-center justify-start w-full mt-20 max-h-screen overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}
           >
             <p className="fixed top-8 border border-transparent hover:border-gray-500/50 py-1 px-2 rounded-lg font-semibold mb-6">
               {selectedChat.name}
@@ -163,29 +163,22 @@ export default function Home() {
         <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
 
         {/* Footer text */}
-        {user ? (
-          <p
-            className={`text-xs absolute bottom-1 text-gray-500 transition-all duration-700 ease-out ${
-              logoAnimated 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-2"
-            }`}
-            style={{ transitionDelay: logoAnimated ? '400ms' : '0ms' }}
-          >
-            Hi {user.firstName}! Ask me anything about Pranav or just chat
-          </p>
-        ) : (
-          <p
-            className={`text-sm mt-2 text-gray-400 text-center transition-all duration-700 ease-out ${
-              logoAnimated 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-2"
-            }`}
-            style={{ transitionDelay: logoAnimated ? '300ms' : '0ms' }}
-          >
-            Hello there! Ask anything about Pranav or just chat
-          </p>
-        )}
+        {/* compact mobile-friendly fixed footer — replace both footer <p> blocks with this */}
+<p
+  className={`text-xs fixed bottom-3 left-0 right-0 mx-auto w-full max-w-3xl text-center text-gray-400 transition-all duration-700 ease-out z-50 ${
+    logoAnimated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+  }`}
+  style={{
+    background: "linear-gradient(180deg, rgba(41,42,45,0), rgba(41,42,45,0.88))",
+    padding: "6px 12px",
+    borderRadius: "10px",
+    transitionDelay: logoAnimated ? "400ms" : "0ms",
+    pointerEvents: "none"
+  }}
+>
+  {user ? `Hi ${user.firstName}! Ask me anything about Pranav or just chat` : "Hello there! Ask anything about Pranav or just chat"}
+</p>
+
       </div>
 
       {/* Tailwind custom animations */}
