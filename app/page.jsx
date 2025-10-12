@@ -113,7 +113,7 @@ export default function Home() {
             <Image
               src={assets.logo_icon}
               alt=""
-              className={`h-21 w-21 md:h-26 md:w-26  rounded-full transition-all duration-1000 ease-out ${
+              className={`h-21 w-21 md:h-26 md:w-25  rounded-full transition-all duration-1000 ease-out ${
                 mounted 
                   ? "scale-100 opacity-100 animate-logo-grow" 
                   : "scale-0 opacity-0"
