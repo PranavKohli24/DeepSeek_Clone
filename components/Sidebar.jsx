@@ -48,7 +48,7 @@ const Sidebar = ({expand,setExpand}) => {
 
   return (
     <div ref={sidebarRef} 
-    className={`flex flex-col justify-between bg-[#212327] pt-7 transition-all duration-300 ease-in-out z-50 
+    className={`flex flex-col justify-between bg-[#202123] pt-7 transition-all duration-300 ease-in-out z-50 
     max-md:absolute max-md:h-screen ${expand?'p-4 w-64':'md:w-20 w-0 max-md:overflow-hidden'}`}>
       <div>
         <div className={`flex ${expand?'flex-row gap-10':'flex-col items-center gap-8'}`}>
@@ -105,7 +105,7 @@ const Sidebar = ({expand,setExpand}) => {
         </div>
       </div>
 
-      <div className={`absolute bottom-4 left-0 flex flex-col gap-2 p-2 rounded-lg ${expand ? 'w-64' : 'md:w-20 w-0'}`} 
+      <div className={`absolute bottom-15 lg:bottom-1 left-0 flex flex-col gap-2 p-2 rounded-lg ${expand ? 'w-64' : 'md:w-20 w-0'}`} 
      style={{ backgroundColor: '#1a1c20' }}>
         <div onClick={() => window.open('https://www.linkedin.com/in/pranav-kohli-987aa5226/', '_blank')} className={`flex items-center cursor-pointer group relative 
             ${expand?'gap-1 text-white/80 text-sm p-2.5 border border-primary rounded-lg hover:bg-white/10 cursor-pointer':
@@ -118,7 +118,7 @@ const Sidebar = ({expand,setExpand}) => {
                 <div className={`w-3 h-3 absolute bg-black rotate-45 ${expand?'right-1/2':'left-4'} -bottom-1.5`}></div>
             </div>
         </div>
-        {expand&&<><span>Linkedin</span><Image src={assets.new_icon} alt='' /></>}
+        {expand&&<><span>Linkedin</span></>}
             </div>
 
 <div onClick={user?openUserProfile:openSignIn} 

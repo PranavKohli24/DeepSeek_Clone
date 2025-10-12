@@ -15,16 +15,30 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [logoAnimated, setLogoAnimated] = useState(false);
-  const [creatingChat, setCreatingChat] = useState(false); // NEW
+  const [creatingChat, setCreatingChat] = useState(false);
 
   const { selectedChat, user, createNewChat } = useAppContext();
   const containerRef = useRef(null);
   const { openSignIn } = useClerk();
 
+  // MINIMAL FIX: Prevent body scroll + fix mobile vh
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    const setVH = () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('resize', setVH);
+    };
+  }, []);
+
   useEffect(() => {
     if (selectedChat) {
       setMessages(selectedChat.messages);
-      setCreatingChat(false); // reset after new chat loads
+      setCreatingChat(false);
     }
   }, [selectedChat]);
 
@@ -50,14 +64,13 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen bg-[#292a2d] text-white">
-      {/* Sidebar */}
+    // CHANGE 1: Replace h-screen with dynamic height
+    <div className="flex bg-[#292a2d] text-white" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
       <Sidebar expand={expand} setExpand={setExpand} />
 
-      {/* Main Section */}
+      {/* CHANGE 2: Add overflow-hidden to main container */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-12 md:pb-20 relative overflow-hidden">
         
-        {/* Mobile menu + new chat */}
         <div className="md:hidden absolute px-4 top-6 flex flex-col items-center w-full">
           <div className="flex items-center justify-between w-full">
             <Image
@@ -84,11 +97,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Signup button */}
         {!user && (
           <button
             onClick={openSignIn}
-            className={`absolute top-20 right-6 px-6 py-3 bg-gradient-to-r from-sky-400 to-sky-600 text-white font-semibold rounded-xl shadow-md transform transition-all duration-500 ease-out
+            className={`absolute top-20 right-6 px-6 py-3 bg-gradient-to-r from-[#0F2540] to-[#5A7EBB] text-white font-semibold rounded-xl shadow-md transform transition-all duration-500 ease-out
     ${logoAnimated ? "translate-x-0 opacity-100" : "translate-x-24 opacity-0"}
     hover:scale-105 hover:shadow-xl hover:from-sky-500 hover:to-sky-700`}
           >
@@ -96,13 +108,12 @@ export default function Home() {
           </button>
         )}
 
-        {/* Intro / Empty Chat */}
         {messages.length === 0 && (
           <div className="flex flex-col items-center gap-3 text-center px-4">
             <Image
               src={assets.logo_icon}
               alt=""
-              className={`h-24 w-24 md:h-26 md:w-26  rounded-full transition-all duration-1000 ease-out ${
+              className={`h-21 w-21 md:h-26 md:w-26  rounded-full transition-all duration-1000 ease-out ${
                 mounted 
                   ? "scale-100 opacity-100 animate-logo-grow" 
                   : "scale-0 opacity-0"
@@ -113,7 +124,7 @@ export default function Home() {
                 logoAnimated 
                   ? "scale-100 opacity-100 translate-y-0" 
                   : "scale-0 opacity-0 translate-y-4"
-              } text-xl sm:text-2xl md:text-3xl`}
+              } text-xl sm:text-2xl md:text-2xl`}
             >
               Hi, I am Pranav's Digital Twin
             </h1>
@@ -130,7 +141,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* Chat messages */}
         {messages.length > 0 && (
           <div
             ref={containerRef}
@@ -145,7 +155,7 @@ export default function Home() {
             {isLoading && (
               <div className="flex gap-4 max-w-3xl w-full py-3">
                 <Image
-                  className="h-9 w-9 p-1 border border-white/15 rounded-full"
+                  className="h-10 w-10 p-1 border border-white/15 rounded-full"
                   src={assets.logo_icon}
                   alt="Logo"
                 />
@@ -159,10 +169,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* Prompt */}
         <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
 
-        {/* Footer text */}
         {user ? (
           <p
             className={`text-xs absolute bottom-1 text-gray-500 transition-all duration-700 ease-out ${
@@ -188,7 +196,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Tailwind custom animations */}
       <style jsx>{`
         @keyframes logo-grow {
           0% {
@@ -205,14 +212,8 @@ export default function Home() {
           }
         }
 
-        
-
         .animate-logo-grow {
           animation: logo-grow 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .animate-logo-glow {
-          animation: logo-glow 2s ease-in-out infinite;
         }
       `}</style>
     </div>
